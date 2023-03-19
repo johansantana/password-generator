@@ -31,6 +31,7 @@ const showTooltipMessage = ref(false)
 const warningMessage = ref(null)
 
 const handleCopy = text => {
+  console.log(navigator.clipboard)
   if (!text) {
     warningMessage.value = 'Generate a password before copying.'
     const warningTimeout = window.setTimeout(() => {
@@ -80,7 +81,9 @@ const handleCopy = text => {
               v-model="passwordLength"
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer focus:outline-none"
             />
-            <span class="text-white font-bold text-2xl md:text-3xl">{{ passwordLength }}</span>
+            <span class="text-white font-bold text-2xl md:text-3xl">{{
+              passwordLength
+            }}</span>
           </div>
         </div>
       </Transition>
@@ -124,9 +127,6 @@ const handleCopy = text => {
       <footer
         class="py-10 text-white flex flex-col items-center gap-6 border-t-8 border-dashed border-gray-400/20"
       >
-        <div class="w-fit">
-          <img src="/logo.svg" alt="HacktoberFest Logo" class="w-44 sm:w-52 md:w-60 opacity-70" />
-        </div>
         <div class="w-fit">
           <a
             href="https://github.com/johansantana"
