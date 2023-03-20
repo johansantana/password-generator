@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { animate, newPassword } from '../utils'
 import TooltipMessage from './TooltipMessage.vue'
 import WarningMessage from './WarningMessage.vue'
+import AppButton from './AppButton.vue'
 import GithubIcon from './icons/GithubIcon.vue'
 import CopyIcon from './icons/CopyIcon.vue'
 import CheckIcon from './icons/CheckIcon.vue'
@@ -105,9 +106,8 @@ const handleCopy = text => {
             readonly
             class="bg-transparent border-2 text-sm sm:text-base border-white text-white placeholder-gray-400 rounded-lg focus:outline-none block w-full p-3"
           />
-          <button
+          <AppButton
             id="johansantana-copy-button"
-            class="bg-transparent relative border-2 border-white p-2 px-3 rounded-lg text-white hover:bg-white hover:scale-110 hover:text-gray-700 focus:outline-none transition"
             @click="handleCopy(password)"
           >
             <CopyIcon />
@@ -117,7 +117,7 @@ const handleCopy = text => {
                 <CheckIcon class="text-green-400" />
               </TooltipMessage>
             </Transition>
-          </button>
+          </AppButton>
         </div>
       </Transition>
     </div>
