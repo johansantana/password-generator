@@ -7,6 +7,10 @@ import AppButton from './AppButton.vue'
 import GithubIcon from './icons/GithubIcon.vue'
 import CopyIcon from './icons/CopyIcon.vue'
 import CheckIcon from './icons/CheckIcon.vue'
+import LowercaseIcon from './icons/LowercaseIcon.vue'
+import UppercaseIcon from './icons/UppercaseIcon.vue'
+import NumbersIcon from './icons/NumbersIcon.vue'
+import SymbolsIcon from './icons/SymbolsIcon.vue'
 
 const MIN_LENGTH = 6
 const MAX_LENGTH = 24
@@ -67,37 +71,56 @@ const handleCopy = text => {
         </h1>
       </Transition>
       <Transition name="slideup" :duration="1000" appear>
-        <div id="johansantana-length-selector">
+        <div id="length-selector">
           <p
             class="text-sm sm:text-base text-gray-200/50 mb-2 w-fit mx-auto sm:before:content-['-'] sm:after:content-['-'] sm:after:ml-2"
           >
-            Select your <span class="text-gray-200/80">password length</span>
+            Select your <span class="text-gray-200/80">Password options</span>
           </p>
           <div class="mb-6 flex gap-6 items-center">
             <input
-              id="johansantana-range"
+              id="input-range"
               type="range"
               :min="MIN_LENGTH"
               :max="MAX_LENGTH"
               v-model="passwordLength"
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer focus:outline-none"
+              title="Password length"
             />
-            <span class="text-white font-bold text-2xl md:text-3xl">{{
-              passwordLength
-            }}</span>
+            <span class="text-white font-bold text-2xl md:text-3xl">{{ passwordLength }}</span>
           </div>
         </div>
       </Transition>
+
       <Transition name="slideup" :duration="1500" appear>
+        <div class="">
+          <div class="mb-6 flex gap-3 justify-center">
+            <AppButton title="Add lowercase letters">
+              <LowercaseIcon />
+            </AppButton>
+            <AppButton title="Add uppercase letters">
+              <UppercaseIcon />
+            </AppButton>
+            <AppButton title="Add numbers">
+              <NumbersIcon />
+            </AppButton>
+            <AppButton title="Add symbols">
+              <SymbolsIcon />
+            </AppButton>
+          </div>
+        </div>
+      </Transition>
+
+      <Transition name="slideup" :duration="2000" appear>
         <button
-          id="johansantana-cta-button"
+          id="cta-button"
           class="px-6 text-sm sm:text-lg bg-blue-700 rounded-full py-3 text-white mb-6 hover:scale-105 hover:bg-blue-600 transition outline-8 outline-offset-4"
           @click="handleGenerateNewPassword(passwordLengthNumber)"
         >
           Generate!
         </button>
       </Transition>
-      <Transition name="slideup" :duration="2000" appear>
+      <Transition name="slideup" :duration="2500" appear>
         <div id="johansantana-password-area" class="flex gap-3">
           <input
             type="text"
@@ -106,10 +129,7 @@ const handleCopy = text => {
             readonly
             class="bg-transparent border-2 text-sm sm:text-base border-white text-white placeholder-gray-400 rounded-lg focus:outline-none block w-full p-3"
           />
-          <AppButton
-            id="johansantana-copy-button"
-            @click="handleCopy(password)"
-          >
+          <AppButton id="johansantana-copy-button" @click="handleCopy(password)">
             <CopyIcon />
 
             <Transition name="fade">
@@ -123,7 +143,7 @@ const handleCopy = text => {
     </div>
 
     <!-- Footer -->
-    <Transition name="slideup" :duration="2500" appear>
+    <Transition name="slideup" :duration="3000" appear>
       <footer
         class="py-10 text-white flex flex-col items-center gap-6 border-t-8 border-dashed border-gray-400/20"
       >
@@ -146,7 +166,7 @@ const handleCopy = text => {
 <style scoped>
 @import url('../assets/styles/transitions.css');
 
-#johansantana-range::-webkit-slider-thumb {
+#input-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 24px;
@@ -157,13 +177,13 @@ const handleCopy = text => {
   transition: background-color 0.2s ease;
 }
 
-#johansantana-range:hover::-webkit-slider-thumb {
+#input-range:hover::-webkit-slider-thumb {
   border-radius: 999%;
   background-color: rgb(200, 200, 200);
 }
 
-#johansantana-cta-button,
-#johansantana-copy-button {
+#cta-button,
+.btn {
   -webkit-tap-highlight-color: transparent;
 }
 </style>
