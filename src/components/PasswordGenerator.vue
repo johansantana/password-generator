@@ -21,6 +21,12 @@ const MAX_LENGTH = 24
 */
 const passwordLength = ref(MAX_LENGTH / 2 + MIN_LENGTH / 2)
 const password = ref(null)
+const options = ref({
+  hasLowercase: true,
+  hasNumbers: false,
+  hasUppercase: false,
+  hasSymbols: false
+})
 const animatedPassword = ref('')
 
 const passwordLengthNumber = computed(() => {
@@ -28,15 +34,27 @@ const passwordLengthNumber = computed(() => {
 })
 
 const handleGenerateNewPassword = number => {
-  password.value = newPassword(number)
+  password.value = newPassword({ number, ...options.value })
   animate(password.value, animatedPassword)
+}
+
+const handleOptions = option => {
+  const deactivatedOptionsCount = Object.values(options.value).filter(value => !value).length
+  if (deactivatedOptionsCount === 3 && options.value[option]) {
+    warningMessage.value = 'You must have at least one option.'
+    const warningTimeout = window.setTimeout(() => {
+      warningMessage.value = null
+      window.clearTimeout(warningTimeout)
+    }, 3000)
+    return
+  }
+  options.value[option] = !options.value[option]
 }
 
 const showTooltipMessage = ref(false)
 const warningMessage = ref(null)
 
 const handleCopy = text => {
-  console.log(navigator.clipboard)
   if (!text) {
     warningMessage.value = 'Generate a password before copying.'
     const warningTimeout = window.setTimeout(() => {
@@ -62,6 +80,7 @@ const handleCopy = text => {
     </Transition>
     <!-- Generator -->
     <div class="py-10 flex flex-col">
+      <!-- Title -->
       <Transition name="slideup" :duration="500" appear>
         <h1
           id="johansantana-h1"
@@ -70,6 +89,8 @@ const handleCopy = text => {
           Password Generator
         </h1>
       </Transition>
+
+      <!-- Length range -->
       <Transition name="slideup" :duration="1000" appear>
         <div id="length-selector">
           <p
@@ -92,25 +113,41 @@ const handleCopy = text => {
         </div>
       </Transition>
 
+      <!-- Options -->
       <Transition name="slideup" :duration="1500" appear>
-        <div class="">
-          <div class="mb-6 flex gap-3 justify-center">
-            <AppButton title="Add lowercase letters">
-              <LowercaseIcon />
-            </AppButton>
-            <AppButton title="Add uppercase letters">
-              <UppercaseIcon />
-            </AppButton>
-            <AppButton title="Add numbers">
-              <NumbersIcon />
-            </AppButton>
-            <AppButton title="Add symbols">
-              <SymbolsIcon />
-            </AppButton>
-          </div>
+        <div class="mb-6 flex gap-3 justify-center">
+          <AppButton
+            title="Add lowercase letters"
+            :class="{ 'bg-white text-black': options.hasLowercase }"
+            @click="handleOptions('hasLowercase')"
+          >
+            <LowercaseIcon />
+          </AppButton>
+          <AppButton
+            title="Add uppercase letters"
+            :class="{ 'bg-white text-black': options.hasUppercase }"
+            @click="handleOptions('hasUppercase')"
+          >
+            <UppercaseIcon />
+          </AppButton>
+          <AppButton
+            title="Add numbers"
+            :class="{ 'bg-white text-black': options.hasNumbers }"
+            @click="handleOptions('hasNumbers')"
+          >
+            <NumbersIcon />
+          </AppButton>
+          <AppButton
+            title="Add symbols"
+            :class="{ 'bg-white text-black': options.hasSymbols }"
+            @click="handleOptions('hasSymbols')"
+          >
+            <SymbolsIcon />
+          </AppButton>
         </div>
       </Transition>
 
+      <!-- Button -->
       <Transition name="slideup" :duration="2000" appear>
         <button
           id="cta-button"
@@ -120,6 +157,8 @@ const handleCopy = text => {
           Generate!
         </button>
       </Transition>
+
+      <!-- Password -->
       <Transition name="slideup" :duration="2500" appear>
         <div id="johansantana-password-area" class="flex gap-3">
           <input

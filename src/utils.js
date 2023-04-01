@@ -1,13 +1,23 @@
-const PASSWORD_CHARACTERS = [
-  ...'0123456789abcdefghijklmnopqrstuvwxyz_-¿!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-]
+const symbols = '_-¿!@#$%^&*()'.split('')
+const numbers = '0123456789'.split('')
+const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
-export const newPassword = number => {
+let passwordCharacters
+
+export const newPassword = ({ number, hasSymbols, hasNumbers, hasLowercase, hasUppercase }) => {
   const emptyArray = [...Array(number)]
+  passwordCharacters = [
+    ...(hasSymbols ? symbols : []),
+    ...(hasNumbers ? numbers : []),
+    ...(hasLowercase ? lowercaseLetters : []),
+    ...(hasUppercase ? uppercaseLetters : [])
+  ]
+
   return emptyArray
     .map(() => {
-      const randomIndex = Math.floor(Math.random() * PASSWORD_CHARACTERS.length)
-      return PASSWORD_CHARACTERS[randomIndex]
+      const randomIndex = Math.floor(Math.random() * passwordCharacters.length)
+      return passwordCharacters[randomIndex]
     })
     .join('')
 }
@@ -30,7 +40,7 @@ export const animate = (originalString, destination) => {
       for (let shuffle = 15; shuffle > 0; shuffle--) {
         destination.value = destination.value.replace(
           destination.value.charAt(destination.value.length - 1),
-          PASSWORD_CHARACTERS[Math.floor(Math.random() * PASSWORD_CHARACTERS.length)]
+          passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)]
         )
       }
       const currentChars = [...destination.value.split('')]
