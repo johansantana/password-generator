@@ -21,12 +21,7 @@ const MAX_LENGTH = 24
 */
 const passwordLength = ref(MAX_LENGTH / 2 + MIN_LENGTH / 2)
 const password = ref(null)
-const options = ref({
-  hasLowercase: true,
-  hasNumbers: false,
-  hasUppercase: false,
-  hasSymbols: false
-})
+const options = ref({ hasLowercase: true })
 const animatedPassword = ref('')
 
 const passwordLengthNumber = computed(() => {
@@ -39,8 +34,8 @@ const handleGenerateNewPassword = number => {
 }
 
 const handleOptions = option => {
-  const deactivatedOptionsCount = Object.values(options.value).filter(value => !value).length
-  if (deactivatedOptionsCount === 3 && options.value[option]) {
+  const activeOptionsCount = Object.values(options.value).filter(value => value).length
+  if (activeOptionsCount === 1 && options.value[option]) {
     warningMessage.value = 'You must have at least one option.'
     const warningTimeout = window.setTimeout(() => {
       warningMessage.value = null
