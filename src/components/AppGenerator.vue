@@ -1,16 +1,16 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { animate, newPassword } from '../utils'
-import TooltipMessage from './TooltipMessage.vue'
-import WarningMessage from './WarningMessage.vue'
+import AppTooltip from './AppTooltip.vue'
+import AppWarning from './AppWarning.vue'
 import AppButton from './AppButton.vue'
-import GithubIcon from './icons/GithubIcon.vue'
-import CopyIcon from './icons/CopyIcon.vue'
-import CheckIcon from './icons/CheckIcon.vue'
-import LowercaseIcon from './icons/LowercaseIcon.vue'
-import UppercaseIcon from './icons/UppercaseIcon.vue'
-import NumbersIcon from './icons/NumbersIcon.vue'
-import SymbolsIcon from './icons/SymbolsIcon.vue'
+import IconGithub from './icons/IconGithub.vue'
+import IconCopy from './icons/IconCopy.vue'
+import IconCheck from './icons/IconCheck.vue'
+import IconLowercase from './icons/IconLowercase.vue'
+import IconUppercase from './icons/IconUppercase.vue'
+import IconNumbers from './icons/IconNumbers.vue'
+import IconSymbols from './icons/IconSymbols.vue'
 
 const MIN_LENGTH = 6
 const MAX_LENGTH = 24
@@ -24,12 +24,8 @@ const password = ref(null)
 const options = ref({ hasLowercase: true })
 const animatedPassword = ref('')
 
-const passwordLengthNumber = computed(() => {
-  return Number(passwordLength.value)
-})
-
-const handleGenerateNewPassword = number => {
-  password.value = newPassword({ number, ...options.value })
+const handleGenerateNewPassword = length => {
+  password.value = newPassword({ length, ...options.value })
   animate(password.value, animatedPassword)
 }
 
@@ -71,7 +67,7 @@ const handleCopy = text => {
 <template>
   <div class="flex flex-col gap-10 relative">
     <Transition name="slidedown">
-      <WarningMessage v-if="warningMessage" :message="warningMessage" />
+      <AppWarning v-if="warningMessage" :message="warningMessage" />
     </Transition>
     <!-- Generator -->
     <div class="py-10 flex flex-col">
@@ -99,7 +95,7 @@ const handleCopy = text => {
               type="range"
               :min="MIN_LENGTH"
               :max="MAX_LENGTH"
-              v-model="passwordLength"
+              v-model.number="passwordLength"
               class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer focus:outline-none"
               title="Password length"
             />
@@ -116,28 +112,28 @@ const handleCopy = text => {
             :class="{ 'bg-white text-black': options.hasLowercase }"
             @click="handleOptions('hasLowercase')"
           >
-            <LowercaseIcon />
+            <IconLowercase />
           </AppButton>
           <AppButton
             title="Add uppercase letters"
             :class="{ 'bg-white text-black': options.hasUppercase }"
             @click="handleOptions('hasUppercase')"
           >
-            <UppercaseIcon />
+            <IconUppercase />
           </AppButton>
           <AppButton
             title="Add numbers"
             :class="{ 'bg-white text-black': options.hasNumbers }"
             @click="handleOptions('hasNumbers')"
           >
-            <NumbersIcon />
+            <IconNumbers />
           </AppButton>
           <AppButton
             title="Add symbols"
             :class="{ 'bg-white text-black': options.hasSymbols }"
             @click="handleOptions('hasSymbols')"
           >
-            <SymbolsIcon />
+            <IconSymbols />
           </AppButton>
         </div>
       </Transition>
@@ -147,7 +143,7 @@ const handleCopy = text => {
         <button
           id="cta-button"
           class="px-6 text-sm sm:text-lg bg-blue-700 rounded-full py-3 text-white mb-6 hover:scale-105 hover:bg-blue-600 transition outline-8 outline-offset-4"
-          @click="handleGenerateNewPassword(passwordLengthNumber)"
+          @click="handleGenerateNewPassword(passwordLength)"
         >
           Generate!
         </button>
@@ -164,12 +160,12 @@ const handleCopy = text => {
             class="bg-transparent border-2 text-sm sm:text-base border-white text-white placeholder-gray-400 rounded-lg focus:outline-none block w-full p-3"
           />
           <AppButton id="johansantana-copy-button" @click="handleCopy(password)">
-            <CopyIcon />
+            <IconCopy />
 
             <Transition name="fade">
-              <TooltipMessage v-if="showTooltipMessage" message="Copied!">
-                <CheckIcon class="text-green-400" />
-              </TooltipMessage>
+              <AppTooltip v-if="showTooltipMessage" message="Copied!">
+                <IconCheck class="text-green-400" />
+              </AppTooltip>
             </Transition>
           </AppButton>
         </div>
@@ -188,7 +184,7 @@ const handleCopy = text => {
             target="_blank"
             rel="noopener"
           >
-            <GithubIcon />
+            <IconGithub />
             @johansantana
           </a>
         </div>

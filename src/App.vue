@@ -1,5 +1,5 @@
 <script setup>
-import PasswordGenerator from './components/PasswordGenerator.vue'
+import AppGenerator from './components/AppGenerator.vue'
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import PasswordGenerator from './components/PasswordGenerator.vue'
     id="johansantana-main"
     class="bg-[url('/grain-dark.png')] min-h-screen flex font-mono items-center justify-center p-10 md:overflow-hidden"
   >
-    <PasswordGenerator />
+    <AppGenerator />
   </main>
 </template>
 
