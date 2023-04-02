@@ -21,7 +21,7 @@ const MAX_LENGTH = 24
 */
 const passwordLength = ref(MAX_LENGTH / 2 + MIN_LENGTH / 2)
 const password = ref(null)
-const options = ref({ hasLowercase: true })
+const options = ref({ hasLowercase: true, hasUppercase: true, hasNumbers: true })
 const animatedPassword = ref('')
 
 const handleGenerateNewPassword = length => {
@@ -31,6 +31,8 @@ const handleGenerateNewPassword = length => {
 
 const handleOptions = option => {
   const activeOptionsCount = Object.values(options.value).filter(value => value).length
+
+  // force to have at least 1 options actived
   if (activeOptionsCount === 1 && options.value[option]) {
     warningMessage.value = 'You must have at least one option.'
     const warningTimeout = window.setTimeout(() => {
@@ -39,6 +41,7 @@ const handleOptions = option => {
     }, 3000)
     return
   }
+
   options.value[option] = !options.value[option]
 }
 
