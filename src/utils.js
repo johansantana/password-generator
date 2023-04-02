@@ -50,7 +50,7 @@ export const animate = (originalString, destination) => {
       // suffle variable in the loop represent the probability
       // the character might have to shuffle.
       // The higher the number, higher the suffle.
-      for (let shuffle = 15; shuffle > 0; shuffle--) {
+      for (let shuffle = 100; shuffle > 0; shuffle--) {
         destination.value = destination.value.replace(
           // Replace character with a random one
           destination.value.charAt(destination.value.length - 1),
