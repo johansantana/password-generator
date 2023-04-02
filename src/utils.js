@@ -1,4 +1,4 @@
-const SYMBOLS = '_-¿!@#$%^&*()'.split('')
+const SYMBOLS = '_-¿!@#$%^&*()?¡'.split('')
 const NUMBERS = '0123456789'.split('')
 const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -35,6 +35,7 @@ export const newPassword = ({ length, hasSymbols, hasNumbers, hasLowercase, hasU
  */
 export const animate = (originalString, destination) => {
   destination.value = ''
+
   // Repeat the same for every character in the string
   originalString.split('').forEach((character, index) => {
     // set the string at the end of the loop
@@ -49,7 +50,6 @@ export const animate = (originalString, destination) => {
       // suffle variable in the loop represent the probability
       // the character might have to shuffle.
       // The higher the number, higher the suffle.
-
       for (let shuffle = 15; shuffle > 0; shuffle--) {
         destination.value = destination.value.replace(
           // Replace character with a random one
