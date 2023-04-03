@@ -65,3 +65,25 @@ export const animate = (originalString, destination) => {
     }, index * 100)
   })
 }
+
+export const checkPasswordStrength = options => {
+  const { length, hasLowercase, hasUppercase, hasNumbers, hasSymbols } = options
+  let score = hasLowercase + hasUppercase + hasNumbers + hasSymbols
+
+  if (length >= 12) score += 7
+  else if (length >= 8) score += 5
+  else if (length >= 6) score += 2
+  else length += 1
+
+  score = Math.floor(score / 2)
+
+  const descriptions = {
+    1: 'Muy débil',
+    2: 'Débil',
+    3: 'Moderada',
+    4: 'Fuerte',
+    5: 'Muy fuerte'
+  }
+
+  return { value: score, description: descriptions[score] }
+}

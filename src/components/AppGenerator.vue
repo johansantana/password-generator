@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { animate, newPassword } from '../utils'
+import { animate, newPassword, checkPasswordStrength } from '../utils'
 import AppTooltip from './AppTooltip.vue'
 import AppWarning from './AppWarning.vue'
 import AppButton from './AppButton.vue'
@@ -21,7 +21,7 @@ const MAX_LENGTH = 24
 */
 const passwordLength = ref(MAX_LENGTH / 2 + MIN_LENGTH / 2)
 const password = ref(null)
-const options = ref({ hasLowercase: true, hasUppercase: true, hasNumbers: true })
+const options = ref({ hasLowercase: true, hasUppercase: true, hasNumbers: true, hasSymbols: false })
 const animatedPassword = ref('')
 
 const handleGenerateNewPassword = length => {
