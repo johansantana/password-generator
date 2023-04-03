@@ -6,9 +6,14 @@ const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 let passwordCharacters
 
 /**
- * Function to generate a new password based on the options provided
- * @param {object} options
- * @returns {string} Password output
+ * Function to generate a new password based on the options provided.
+ * @param {Object} options Options for creating the new password.
+ * @param {Number} options.length Password length.
+ * @param {Boolean} options.hasUppercase Wether or not password will contain uppercase letters.
+ * @param {Boolean} options.hasLowercase Wether or not password will contain lowercase letters.
+ * @param {Boolean} options.hasNumbers Wether or not password will contain numbers.
+ * @param {Boolean} options.hasSymbols Wether or not password will contain special characters.
+ * @returns {String} Password output in string format.
  */
 export const newPassword = ({ length, hasSymbols, hasNumbers, hasLowercase, hasUppercase }) => {
   const emptyArray = [...Array(length)]
@@ -28,10 +33,10 @@ export const newPassword = ({ length, hasSymbols, hasNumbers, hasLowercase, hasU
 }
 
 /**
- * Function to animate a reference string with random characters
- * @param {string} originalString
- * @param {ref} destination
- * @returns {undefined}
+ * Function to animate a reference string with random characters.
+ * @param {String} originalString The original source where the animated password is going to end.
+ * @param {Ref} destination The animated vueRef password destination.
+ * @returns {Undefined}
  */
 export const animate = (originalString, destination) => {
   destination.value = ''
@@ -66,6 +71,16 @@ export const animate = (originalString, destination) => {
   })
 }
 
+/**
+ *
+ * @param {Object} options Options for password strength check.
+ * @param {Number} options.length Password length.
+ * @param {Boolean} options.hasLowercase Wether or not password contains lowercase letters.
+ * @param {Boolean} options.hasUppercase Wether or not password contains uppercase letters.
+ * @param {Boolean} options.hasNumbers Wether or not password contains numbers.
+ * @param {Boolean} options.hasSymbols Wether or not password contains special characters.
+ * @returns {Object}
+ */
 export const checkPasswordStrength = options => {
   const { length, hasLowercase, hasUppercase, hasNumbers, hasSymbols } = options
   let score = hasLowercase + hasUppercase + hasNumbers + hasSymbols
@@ -75,6 +90,7 @@ export const checkPasswordStrength = options => {
   else if (length >= 6) score += 2
   else length += 1
 
+  // result scoring to be 1-5
   score = Math.floor(score / 2)
 
   const descriptions = {
