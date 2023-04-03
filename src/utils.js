@@ -4,7 +4,6 @@ const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
 let passwordCharacters
-
 /**
  * Function to generate a new password based on the options provided.
  * @param {Object} options Options for creating the new password.
