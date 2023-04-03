@@ -71,7 +71,7 @@ export const animate = (originalString, destination) => {
 }
 
 /**
- *
+ * Function to give a score and description to a password strength.
  * @param {Object} options Options for password strength check.
  * @param {Number} options.length Password length.
  * @param {Boolean} options.hasLowercase Wether or not password contains lowercase letters.
