@@ -1,9 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { animate, newPassword, checkPasswordStrength } from '../utils'
 import AppTooltip from './AppTooltip.vue'
 import AppWarning from './AppWarning.vue'
 import AppButton from './AppButton.vue'
+import AppLoadingbar from './AppLoadingbar.vue'
+
+// Icons
 import IconGithub from './icons/IconGithub.vue'
 import IconCopy from './icons/IconCopy.vue'
 import IconCheck from './icons/IconCheck.vue'
@@ -28,6 +31,10 @@ const handleGenerateNewPassword = length => {
   password.value = newPassword({ length, ...options.value })
   animate(password.value, animatedPassword)
 }
+
+const passwordStrength = computed(() => {
+  return checkPasswordStrength({ length: passwordLength.value, ...options.value })
+})
 
 const handleOptions = option => {
   const activeOptionsCount = Object.values(options.value).filter(value => value).length
@@ -173,10 +180,20 @@ const handleCopy = text => {
           </AppButton>
         </div>
       </Transition>
+
+      <!-- Loadingbar -->
+      <Transition name="slideup" :duration="3000" appear>
+        <div class="mt-6">
+          <AppLoadingbar
+            :value="passwordStrength.value"
+            :description="passwordStrength.description"
+          />
+        </div>
+      </Transition>
     </div>
 
     <!-- Footer -->
-    <Transition name="slideup" :duration="3000" appear>
+    <Transition name="slideup" :duration="3500" appear>
       <footer
         class="py-10 text-white flex flex-col items-center gap-6 border-t-8 border-dashed border-gray-400/20"
       >
