@@ -93,11 +93,11 @@ export const checkPasswordStrength = options => {
   score = Math.floor(score / 2)
 
   const descriptions = {
-    1: 'Muy débil',
-    2: 'Débil',
-    3: 'Moderada',
-    4: 'Fuerte',
-    5: 'Muy fuerte'
+    1: 'Very weak',
+    2: 'Weak',
+    3: 'Moderate',
+    4: 'Strong',
+    5: 'Very Strong'
   }
 
   return { value: score, description: descriptions[score] }
