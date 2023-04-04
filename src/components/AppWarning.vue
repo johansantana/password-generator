@@ -13,7 +13,7 @@ const { message } = props
 
 <template>
   <div
-    class="absolute gap-3 flex text-sm sm:text-base bg-gray-700 p-3 px-5 left-1/2 -translate-x-1/2 sm:-top-20 rounded-xl text-white whitespace-nowrap"
+    class="absolute gap-3 flex items-center text-sm sm:text-base bg-gray-700 p-3 px-5 left-1/2 -translate-x-1/2 sm:-top-20 rounded-xl text-white whitespace-nowrap"
   >
     <IconAlert class="text-red-400" />
     {{ message }}
